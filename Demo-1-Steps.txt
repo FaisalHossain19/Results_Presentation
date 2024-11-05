@@ -20,3 +20,24 @@
 9. To add dependencies to your .venv and not to your machine, run 'hatch run uv add <dependency>'
 10. To run the application with fastapi framework (see src/app/main.py for framework call), 'hatch run fastapi dev src/app/main.py'
     - The terminal will then show the API doc URL and the server URL
+11. In the src/app create 5 folders
+    - core: config and settings
+    - models: database models
+    - schemas
+    - routes
+    - services
+12. Look at a post request and see the update on the fastapi api page
+13. Add a response model to the post request so that other devs can expect a certain response format.
+14. Add a status code to the post as a 201
+15. Security implementation for OAuth2 (FastAPI -> Security -> Security-First Steps) - Enables the authorize button on the API page
+    - (FastAPI -> Security -> Get Current User) Create a user model with a security auth token
+    - (FastAPI -> Security -> Simple OAuth2 with Password and Bearer) - uses a fake database to create fake users, post will work, for get(user) to work, the user needs to be authenticated (WRONG WAY OF DOING THIS, VERY UNSAFE)
+16. Security using OAuth2 JWT
+    - 'hatch run uv add pyJWT', and 'hatch run uv add "passlib[bcrypt]"'
+    - Paste code from (FastAPI -> Security -> OAuth2 with Password and Bearer, with JWT), NEVER SHOW YOUR SECRET KEY
+    - Now, when the user logs in, an access token is provided.
+17. SQL Database integration
+    - 'hatch run uv add sqlmodel'
+    - Paste the code from SQL example from FastAPI website
+    - THIS IS THE MOST IMPORTANT EXAMPLE
+    - This example shows how to make a user, link it to a database, and how to remove those users
