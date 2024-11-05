@@ -15,3 +15,8 @@
     1. 'git add <changes to repo>'
     2. 'git commit -m "msg"'
     3. pre-commit will check the update and if all tests pass, will stage the commit for pushing.
+    4. If pre-commit detects issues, it will make changes to those files, you then need to 'git add' the changes that pre-commit made to the files and then commit again
+    5. 'git push' once changes are resolved
+9. To add dependencies to your .venv and not to your machine, run 'hatch run uv add <dependency>'
+10. To run the application with fastapi framework (see src/app/main.py for framework call), 'hatch run fastapi dev src/app/main.py'
+    - The terminal will then show the API doc URL and the server URL
