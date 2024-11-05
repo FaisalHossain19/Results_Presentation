@@ -1,0 +1,17 @@
+1. Install uv installer
+2. Install hatch app manager
+3. Make python app using 'hatch new <project_name>'
+    - This will create the basic structure for your backend
+4. Edit the pyproject.toml to reflect your app
+5. Create a virtual environment (.venv) 'hatch run uv sync'
+    - uv will make a venv folder in your directory, make sure to include .venv in your .gitignore
+6. Create a main.py in the src/app folder, 'print(hello world)' for example
+7. Run using 'hatch run python src/app/main.py'
+8. Attach 'pre commit tool' to the CI/CD flow
+    - 'pip install pre-commit'
+    - Create .pre-commit-config.yaml file identical to prof's repo
+    - 'pre-commit install' to attach pre-commit execution to 'git commit' executable
+    - Now, with every potential update to the repo, the steps to take are:
+    1. 'git add <changes to repo>'
+    2. 'git commit -m "msg"'
+    3. pre-commit will check the update and if all tests pass, will stage the commit for pushing.
