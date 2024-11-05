@@ -1,0 +1,81 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "app"
+dynamic = ["version"]
+description = 'A firmware test result display'
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "Faisal Hossian", email = "mhossain6611@sdsu.edu"},
+  { name = "Jiya Rathi", email = "jrathi4302@sdsu.edu"},
+  { name = "Ty Runner", email = "trunner2630@sdsu.edu"}
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+    "fastapi[all]>=0.115.4",
+    "passlib[bcrypt]>=1.7.4",
+    "pyjwt>=2.9.0",
+    "sqlalchemy>=2.0.36",
+    "sqlmodel>=0.0.22",
+]
+
+[project.urls]
+Documentation = "https://github.com/FaisalHossain19/Results_Presentation#readme"
+Issues = "https://github.com/FaisalHossain19/Results_Presentation/issues"
+Source = "https://github.com/FaisalHossain19/Results_Presentation"
+
+[tool.hatch.version]
+path = "src/app/__about__.py"
+
+[tool.hatch.envs.default]
+python = "3.12"
+installer = "uv"
+path = ".venv"
+
+[tool.hatch.envs.default.scripts]
+dev = "uvicorn app.main:app --reload"
+
+[tool.hatch.envs.default.env-vars]
+PYTHONASYNCIODEBUG = "1"
+
+[tool.hatch.envs.types]
+installer = "uv"
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/app tests}"
+
+[tool.coverage.run]
+source_pkgs = ["app", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/app/__about__.py",
+]
+
+[tool.coverage.paths]
+app = ["src/app", "*/app/src/app"]
+tests = ["tests", "*/app/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]

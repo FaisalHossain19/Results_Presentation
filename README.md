@@ -48,3 +48,26 @@ Open index.html in your web browser to view the webpage.
 ├── images/              # Folder for image assets
 ├── fonts/               # Folder for font files
 └── README.md            # This README file
+
+
+# Results Presentation
+
+[![PyPI - Version](https://img.shields.io/pypi/v/app.svg)](https://pypi.org/project/app)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/app.svg)](https://pypi.org/project/app)
+
+-----
+
+**Table of Contents**
+
+- [Installation](#installation)
+- [License](#license)
+
+## Installation
+
+```console
+pip install Results-Presentation
+```
+
+## License
+
+`Results-Presentation` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
