@@ -1,13 +1,10 @@
-from typing import Annotated
+from fastapi.testclient import TestClient
 
-from fastapi import Depends, FastAPI
-from fastapi.security import OAuth2PasswordBearer
+from src.app.main import app
 
-app = FastAPI()
+client = TestClient (app)
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
-
-@app.get("/items/")
-async def read_items(token: Annotated[str, Depends(oauth2_scheme)]):
-    return {"token": token}
+def test_read_root():
+    response = client.get("/")
+    assert response.status_code == 200
+    assert response.json() == {"Hello": "World"}
