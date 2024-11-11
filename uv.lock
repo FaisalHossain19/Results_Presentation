@@ -34,6 +34,7 @@ source = { editable = "." }
 dependencies = [
     { name = "fastapi", extra = ["all"] },
     { name = "passlib", extra = ["bcrypt"] },
+    { name = "pydantic-settings" },
     { name = "pyjwt" },
     { name = "python-dotenv" },
     { name = "ruff" },
@@ -45,6 +46,7 @@ dependencies = [
 requires-dist = [
     { name = "fastapi", extras = ["all"], specifier = ">=0.115.4" },
     { name = "passlib", extras = ["bcrypt"], specifier = ">=1.7.4" },
+    { name = "pydantic-settings", specifier = ">=2.6.1" },
     { name = "pyjwt", specifier = ">=2.9.0" },
     { name = "python-dotenv", specifier = ">=1.0.1" },
     { name = "ruff", specifier = ">=0.7.3" },
