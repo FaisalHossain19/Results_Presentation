@@ -1,0 +1,27 @@
+1. Test.yml file includes all the CICD pipelines runs.
+
+2. We modify main_test.py as shown (the time stamp is 3:40 seconds)
+
+3. Create a separate branch for all these changes
+
+4. We push all changes on the new branch (Name of Branch is action_demo) and the do compare and pull request. These steps have the GitHub actions running.
+
+5. We talk about Ruff which is a linting tool which helps us following healthy programming practices.
+
+6. Add __init__.py in core folder along with config.py . Once done adding the __init__.py file. Enter "hatch fmt" command on terminal. It's the command responsible for linting.
+
+7. We create a new file called database.py under core folder in src/apps. After this we setup basic configuration using sqlalchemy for the database. Delete the databases.db file because a new one will be created after this.
+
+8. Add dependancies.py file under services folder under src/apps. We do this because our application depends on this database connection.
+
+9. Next we added .env file to get rid of dependancy in datbases.py file under core folder
+
+10.Now we install a new package using "hatch run uv add python-dotenv", after this we started modifying config.py file. We need to install pydantic-settings for this.
+
+11. lru_cache is used to remember information that you run for the function. It's used mostly in high expense file. We used lru_catch in config.py
+
+12. We run "hatch run dev", running this must generate a database.db file
+
+13. After this we start creating our data models (aka various tables that our database uses ), we start with user.py
+
+14. We need schemas to convert our database object to a python object, so our application knows what kind of data is needed in what kind of field.
