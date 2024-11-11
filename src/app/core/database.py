@@ -1,11 +1,10 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
+from app.core.config import settings
 
-SQLALCHEMY_DATABASE_URL= f"sqlite:///{SQLITE_FILE_NAME}"
-
-#TO DO: Change this to environment variable
+SQLALCHEMY_DATABASE_URL = settings.SQLALCHEMY_DATABASE_URL
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
 
