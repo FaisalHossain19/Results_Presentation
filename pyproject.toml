@@ -29,7 +29,10 @@ classifiers = [
 dependencies = [
     "fastapi[all]>=0.115.4",
     "passlib[bcrypt]>=1.7.4",
+    "pydantic-settings>=2.6.1",
     "pyjwt>=2.9.0",
+    "python-dotenv>=1.0.1",
+    "ruff>=0.7.3",
     "sqlalchemy>=2.0.36",
     "sqlmodel>=0.0.22",
 ]
@@ -41,6 +44,14 @@ Source = "https://github.com/FaisalHossain19/Results_Presentation"
 
 [tool.hatch.version]
 path = "src/app/__about__.py"
+
+[tool.hatch.build]
+include = [
+    "src/**",          # Includes all files in the src directory
+    "pyproject.toml",  # Includes pyproject.toml
+    "README.md"        # Includes README.md if you have one
+]
+
 
 [tool.hatch.envs.default]
 python = "3.12"
