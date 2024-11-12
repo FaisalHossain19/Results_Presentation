@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from ..crud import create_product, get_product_by_id, get_all_products, delete_product
 from ..schemas.products import ProductCreate, ProductResponse
-from ..core.database import get_db
+from ..dependencies import get_db
 
 router = APIRouter()
 

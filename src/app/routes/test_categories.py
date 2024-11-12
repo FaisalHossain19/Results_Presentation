@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from ..crud import create_test_category, get_test_category_by_id, get_all_test_categories, delete_test_category
 from ..schemas.test_categories import TestCategoryCreate, TestCategoryResponse
-from ..core.database import get_db
+from ..dependencies import get_db
 
 router = APIRouter()
 

@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from ..crud import create_version, get_version_by_id, get_all_versions, delete_version
 from ..schemas.versions import VersionCreate, VersionResponse
-from ..core.database import get_db
+from ..dependencies import get_db
 
 router = APIRouter()
 

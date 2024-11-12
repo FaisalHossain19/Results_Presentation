@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from ..crud import create_user, get_user_by_id, get_user_by_email, get_all_users, delete_user
 from ..schemas.user import UserCreate, UserResponse
-from ..core.database import get_db
+from ..dependencies import get_db
 
 router = APIRouter()
 

@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from ..crud import create_test_result, get_test_result_by_id, get_all_test_results, delete_test_result
 from ..schemas.test_results import TestResultCreate, TestResultResponse
-from ..core.database import get_db
+from ..dependencies import get_db
 
 router = APIRouter()
 
