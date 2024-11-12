@@ -26,5 +26,5 @@ def user_logout():
     pass
 
 @router.delete("/{id}")
-def user_logout():
+def user_delete():
     pass

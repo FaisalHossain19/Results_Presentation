@@ -5,19 +5,19 @@ router.get("/")
 def get_test_categories():
     pass
 
-@router.post("/test_category/{category_id}")
+@router.post("/{category_id}")
 def post_test_category():
     pass
 
-@router.get("/test_category/{category_id}")
+@router.get("/{category_id}")
 def get_test_category():
     pass
 
-@router.put("/test_category/{category_id}")
+@router.put("/{category_id}")
 def put_test_category():
     pass
 
-@router.delete("/test_category/{category_id}")
+@router.delete("/{category_id}")
 def delete_test_category():
     pass
 
