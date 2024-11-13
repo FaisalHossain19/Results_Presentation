@@ -1,4 +1,4 @@
-from app.routes import user, test_categories, products, test_results, versions
+from src.app.routes import user, test_categories, products, test_results, versions
 from fastapi import APIRouter
 
 api_router = APIRouter()
