@@ -5,11 +5,11 @@ class ProductBase(BaseModel):
     product_id: str
 
 
-class ProductCreate(ProductBase):
+class ProductsCreate(ProductBase):
     pass
 
 
-class ProductResponse(ProductBase):
+class ProductsResponse(ProductBase):
     id: int
 
     class Config:
