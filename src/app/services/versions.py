@@ -8,11 +8,11 @@ def get_versions(db: Session, version_id: int):
     return db.query(Version).filter(Version.version_id == version_id).all()
 
 
-def get_version_by_version_id(db: Session, version_id: int):
+def get_version_by_id(db: Session, version_id: int):
     return db.query(Version).filter(Version.version_id == version_id)
 
 
-def create_versions(db: Session, version: VersionCreate, version_id: int):
+def create_version(db: Session, version: VersionCreate, version_id: int):
     db_versions = Version(
         version_name=Version.version_name,
         version_type=Version.version_type,
@@ -32,10 +32,10 @@ def create_versions(db: Session, version: VersionCreate, version_id: int):
 #     )
 
 
-def update_version_by_id(
+def update_version(
     db: Session, version_id: int, version: VersionBase, test_result_id: int
 ):
-    db_version = get_version_by_version_id(db, version_id, test_result_id)
+    db_version = get_version_by_id(db, version_id, test_result_id)
     if version is None:
         return None
     for key, value in version.model_dump().items():
@@ -44,10 +44,10 @@ def update_version_by_id(
     db.refresh(db_version)
     return db_version
 
-def update_version_by_version_id(
+def update_version_by_id(
     db: Session, version_id: int, version: VersionBase
 ):
-    db_version = get_version_by_version_id(db, version_id)
+    db_version = get_version_by_id(db, version_id)
     if version is None:
         return None
     for key, value in version.model_dump().items():

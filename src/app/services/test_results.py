@@ -17,7 +17,7 @@ def get_test_result(db: Session, test_case_id: int):
     return db.query(TestResult).filter(TestResult.test_case_id == test_case_id).all()
 
 
-def get_test_result(db: Session, test_category_id: int, test_case_id: int):
+def get_test_result_by_id(db: Session, test_category_id: int, test_case_id: int):
     return (
         db.query(TestResult)
         .filter(TestResult.id == test_category_id, TestResult.test_case_id == test_case_id)
