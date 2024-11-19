@@ -14,8 +14,11 @@ router = APIRouter()
 def create_new_product(
     product: ProductsCreate,
     db: Session = Depends(get_db),
+    token: str = Depends(oauth2_scheme),
 ):
-    return products_service.create_product(db, product)
+    username = decode_access_token(token).username
+    user = user_service.get_user_by_username(db, username).id
+    return products_service.create_product(db, product, user)
 
 
 @router.get("/", response_model=list[ProductsResponse])

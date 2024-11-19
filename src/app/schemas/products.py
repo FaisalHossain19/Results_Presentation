@@ -6,11 +6,13 @@ class ProductBase(BaseModel):
 
 
 class ProductsCreate(ProductBase):
+    product_id: str
     pass
 
 
 class ProductsResponse(ProductBase):
     id: int
+    product_id: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True

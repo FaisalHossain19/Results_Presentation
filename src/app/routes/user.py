@@ -69,9 +69,9 @@ def verify_email(verification_code: str, db: Session = Depends(get_db)):
     return user_service.verify_email(verification_code, db)
 
 
-@router.get("/", response_model=list[UserResponse])
-def read_all_user( db: Session = Depends(get_db)):
-    return user_service.get_all_users(db=db)
+# @router.get("/", response_model=list[UserResponse])
+# def read_all_user( db: Session = Depends(get_db)):
+#     return user_service.get_all_users(db=db)
 
 
 @router.delete("/{user_id}", response_model=UserResponse)
