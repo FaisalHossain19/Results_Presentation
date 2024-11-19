@@ -17,8 +17,9 @@ def create_new_product(
     token: str = Depends(oauth2_scheme),
 ):
     username = decode_access_token(token).username
+    print(username)
     user = user_service.get_user_by_username(db, username).id
-    return products_service.create_product(db, product, user)
+    return products_service.create_product(db, product)
 
 
 @router.get("/", response_model=list[ProductsResponse])

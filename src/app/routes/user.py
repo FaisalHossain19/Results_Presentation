@@ -74,6 +74,6 @@ def verify_email(verification_code: str, db: Session = Depends(get_db)):
 #     return user_service.get_all_users(db=db)
 
 
-@router.delete("/{user_id}", response_model=UserResponse)
+@router.delete("/{user_id}")
 def delete_user_route(user_id: int, db: Session = Depends(get_db)):
     return user_service.delete_user_by_id(db=db, user_id=user_id)

@@ -12,16 +12,16 @@ def get_product_by_product_id(db: Session, product_id: int):
     return db.query(Product).filter(Product.product_id == product_id)
 
 
-def create_product(db: Session, category: ProductsCreate, product_id: int):
-    db_products = Product(
-        product_name=Product.category_name,
-        product_type=Product.category_type,
-        product_id=product_id,
+def create_product(db: Session, product: ProductsCreate):
+    db_product = Product(
+        product_name=product.product_name,
+        product_type=product.product_type,
+        product_id=product.product_id,
     )
-    db.add(db_products)
+    db.add(db_product)
     db.commit()
-    db.refresh(db_products)
-    return db_products
+    db.refresh(db_product)
+    return db_product
 
 
 # def get_product_by_id(db: Session, product_id: int, user_id: int):
