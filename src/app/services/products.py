@@ -4,12 +4,12 @@ from src.app.models.products import Product
 from src.app.schemas.products import ProductBase, ProductsCreate
 
 
-def get_products(db: Session, product_id: int):
-    return db.query(Product).filter(Product.user_id == product_id).all()
+def get_products_by_type(db: Session, type: str):
+    return db.query(Product).filter(Product.product_type == type).all()
 
 
-def get_product_by_product_id(db: Session, product_id: int):
-    return db.query(Product).filter(Product.product_id == product_id)
+def get_product_by_product_id(db: Session, product_num: str):
+    return db.query(Product).filter(Product.product_id == product_num)
 
 
 def create_product(db: Session, product: ProductsCreate):
@@ -41,7 +41,7 @@ def update_product_by_id(
     for key, value in product.model_dump().items():
         setattr(db_product, key, value)
     db.commit()
-    db.refresh(db_product)
+    # db.refresh(db_product)
     return db_product
 
 

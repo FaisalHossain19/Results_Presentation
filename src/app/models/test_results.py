@@ -2,9 +2,7 @@ import enum
 from datetime import datetime  # Correcting datetime and timezone import
 
 from sqlalchemy import Column, DateTime, Enum, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
+from src.app.core.database import Base
 
 
 class TestCaseResult(enum.Enum):
