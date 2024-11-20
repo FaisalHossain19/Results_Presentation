@@ -22,13 +22,18 @@ def create_new_product(
     return products_service.create_product(db, product)
 
 
-@router.get("/", response_model=list[ProductsResponse])
+@router.get("/{product_type}", response_model=list[ProductsResponse])
 def read_products_from_type(
     product_type: str,
     db: Session = Depends(get_db)
 ):
     return products_service.get_products_by_type(db, product_type)
 
+@router.get("/", response_model=list[ProductsResponse])
+def read_all_products(
+    db: Session = Depends(get_db)
+):
+    return products_service.get_products(db)
 
 @router.get("/{product_id}", response_model=ProductsResponse)
 def read_product_by_id(
