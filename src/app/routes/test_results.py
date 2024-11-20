@@ -5,7 +5,7 @@ import src.app.services.test_results as test_results_service
 import src.app.services.user as user_service
 from src.app.core.auth import decode_access_token, oauth2_scheme
 from src.app.dependencies import get_db
-from src.app.schemas.test_results import TestResultCreate, TestResultResponse
+from src.app.schemas.test_results import TestResultCreate, TestResultResponse, TestResultBase
 
 router = APIRouter()
 
@@ -13,10 +13,13 @@ router = APIRouter()
 @router.post("/", response_model=TestResultResponse)
 def create_new_test_result(
     test_results: TestResultCreate,
+    # test_case_id: int,
     db: Session = Depends(get_db),
 ):
-
-    return test_results_service.create_test_result(db, test_results)
+    result = test_results_service.create_test_result(db, test_results)
+    if result is None:
+        return None
+    return result
 
 
 @router.get("/", response_model=list[TestResultResponse])
@@ -41,7 +44,7 @@ def update_test_result_details(
     db: Session = Depends(get_db),
 ):
     return test_results_service.update_test_result(
-        db, test_result_id, test_result
+        db, test_result, test_result_id
     )
 
 

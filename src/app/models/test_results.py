@@ -6,7 +6,7 @@ from src.app.core.database import Base
 
 
 class TestCaseResult(enum.Enum):
-    passed = "pass"
+    passed = "passed"
     fail = "fail"
     skipped = "skipped"
 
@@ -16,7 +16,7 @@ class TestResult(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     requirement_id = Column(Integer, nullable=False)
-    test_case_id = Column(String, nullable=False)
+    test_case_id = Column(Integer, nullable=False, unique=True)
     test_case_result = Column(Enum(TestCaseResult), nullable=False)
     execution_date = Column(DateTime, default=datetime.utcnow, nullable=False)  # Default to current UTC time
     version_tested = Column(String, nullable=False)

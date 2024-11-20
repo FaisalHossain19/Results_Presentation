@@ -1,23 +1,27 @@
 from sqlalchemy.orm import Session
-
+from fastapi import HTTPException
 from src.app.models.versions import Version
 from src.app.schemas.versions import VersionBase, VersionCreate
 
 
-def get_versions(db: Session, version_id: int):
-    return db.query(Version).filter(Version.version_id == version_id).all()
+def get_versions(db: Session):
+    return db.query(Version).all()
 
 
-def get_version_by_id(db: Session, version_id: int):
-    return db.query(Version).filter(Version.version_id == version_id)
+def get_version_by_id(db: Session, version_id: str):
+    version = db.query(Version).filter(Version.version_id == version_id).first()
+    if version is None:
+        raise HTTPException(status_code=404, detail="Version not found")
+    return version
 
 
-def create_version(db: Session, version: VersionCreate, version_id: int):
+def create_version(db: Session, version: VersionCreate):
     db_versions = Version(
-        version_name=Version.version_name,
-        version_type=Version.version_type,
-        version_id=version_id,
+        version_id = version.version_id
     )
+    print(db_versions)
+    if db_versions is None:
+        return None
     db.add(db_versions)
     db.commit()
     db.refresh(db_versions)
@@ -32,20 +36,20 @@ def create_version(db: Session, version: VersionCreate, version_id: int):
 #     )
 
 
-def update_version(
-    db: Session, version_id: int, version: VersionBase, test_result_id: int
-):
-    db_version = get_version_by_id(db, version_id, test_result_id)
-    if version is None:
-        return None
-    for key, value in version.model_dump().items():
-        setattr(db_version, key, value)
-    db.commit()
-    db.refresh(db_version)
-    return db_version
+# def update_version(
+#     db: Session, version_id: str, version: VersionBase
+# ):
+#     db_version = get_version_by_id(db, version_id)
+#     if version is None:
+#         return None
+#     for key, value in version.model_dump().items():
+#         setattr(db_version, key, value)
+#     db.commit()
+#     db.refresh(db_version)
+#     return db_version
 
 def update_version_by_id(
-    db: Session, version_id: int, version: VersionBase
+    db: Session, version_id: str, version: VersionBase
 ):
     db_version = get_version_by_id(db, version_id)
     if version is None:

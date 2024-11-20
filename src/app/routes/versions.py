@@ -12,10 +12,10 @@ router = APIRouter()
 
 @router.post("/", response_model=VersionResponse)
 def create_new_version(
-    versions: VersionCreate,
+    version: VersionCreate,
     db: Session = Depends(get_db),
 ):
-    return versions_service.create_version(db, versions)
+    return versions_service.create_version(db, version)
 
 
 @router.get("/", response_model=list[VersionResponse])
@@ -27,15 +27,16 @@ def read_versions(
 
 @router.get("/{version_id}", response_model=VersionResponse)
 def read_version(
-    version_id: int,
+    version_id: str,
     db: Session = Depends(get_db),
 ):
-    return versions_service.get_version_by_id(db, version_id)
+    version = versions_service.get_version_by_id(db, version_id)
+    return version
 
 
 @router.put("/{version_id}", response_model=VersionResponse)
 def update_version_details(
-    version_id: int,
+    version_id: str,
     version: VersionCreate,
     db: Session = Depends(get_db),
 ):
