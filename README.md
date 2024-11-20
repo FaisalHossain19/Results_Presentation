@@ -39,8 +39,6 @@ In the terminal copy and paste the following: `git clone https://github.com/Fais
 
 Next, install hatch and uv using pip. Once that has been done run the command: `hatch run uv sync`, this will create a virtual environment and synchronize your environment with the dependencies specified in the project configuration. <br>
 
-To be able to run the code you need to be in src folder, so run `cd src`. 
-
 Finally, run `hatch run dev` this will run the main.py file. You will be able to see an IP address in the terminal output if you copy and paste that IP address into the browser, output of our program will be visible. 
 
 ## Folder Structure
