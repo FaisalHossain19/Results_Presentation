@@ -32,7 +32,7 @@ def read_products_from_type(
 
 @router.get("/{product_id}", response_model=ProductsResponse)
 def read_product_by_id(
-    product_id: str,
+    product_id: int,
     db: Session = Depends(get_db),
 ):
     product = products_service.get_product_by_product_id(db, product_id)

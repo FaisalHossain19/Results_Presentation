@@ -69,3 +69,4 @@ def delete_user_by_id(db: Session, user_id: int):
        User.id == user_id
     ).delete()
     db.commit()
+    return True

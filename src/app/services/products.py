@@ -8,8 +8,8 @@ def get_products_by_type(db: Session, type: str):
     return db.query(Product).filter(Product.product_type == type).all()
 
 
-def get_product_by_product_id(db: Session, product_num: str):
-    return db.query(Product).filter(Product.product_id == product_num)
+def get_product_by_product_id(db: Session, product_id: str):
+    return db.query(Product).filter(Product.product_id == product_id).first()
 
 
 def create_product(db: Session, product: ProductsCreate):
@@ -41,7 +41,7 @@ def update_product_by_id(
     for key, value in product.model_dump().items():
         setattr(db_product, key, value)
     db.commit()
-    # db.refresh(db_product)
+    db.refresh(db_product)
     return db_product
 
 
@@ -50,3 +50,4 @@ def delete_product_by_id(db: Session, product_id: int):
         Product.id == product_id
     ).delete()
     db.commit()
+    return True

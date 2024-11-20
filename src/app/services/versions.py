@@ -61,3 +61,4 @@ def delete_version_by_id(db: Session, version_id: int):
         Version.id == version_id
     ).delete()
     db.commit()
+    return True
