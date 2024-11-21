@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 import src.app.services.test_results as test_results_service
@@ -16,7 +16,7 @@ def create_new_test_result(
 ):
     result = test_results_service.create_test_result(db, test_results)
     if result is None:
-        return None
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Test Category not found")
     return result
 
 
@@ -30,7 +30,10 @@ def read_test_result(
     test_result_id: int,
     db: Session = Depends(get_db),
 ):
-    return test_results_service.get_test_result_by_id(db, test_result_id)
+    result = test_results_service.get_test_result_by_id(db, test_result_id)
+    if result is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Test Category not found")
+    return result
 
 
 @router.put("/{test_result_id}", response_model=TestResultResponse)

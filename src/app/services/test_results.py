@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from src.app.models.test_results import TestResult
@@ -26,7 +27,7 @@ def get_test_result_by_id(db: Session, test_case_id: int):
 def update_test_result(db: Session, test_result: TestResultCreate, test_case_id: int):
     db_test_result = get_test_result_by_id(db, test_case_id)
     if db_test_result is None:
-        return None
+        raise HTTPException(status_code=404, detail="Test Result not found")
     for key, value in test_result.model_dump().items():
         setattr(db_test_result, key, value)
     db.commit()

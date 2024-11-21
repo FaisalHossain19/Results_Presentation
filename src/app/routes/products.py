@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 import src.app.services.products as products_service
@@ -37,10 +37,7 @@ def read_product_by_id(
     product_id: int,
     db: Session = Depends(get_db),
 ):
-    product = products_service.get_product_by_product_id(db, product_id)
-    if product is None:
-        raise HTTPException(status_code=404, detail="Product not found")
-    return product
+    return products_service.get_product_by_product_id(db, product_id)
 
 
 @router.put("/{product_id}", response_model=ProductsResponse)
