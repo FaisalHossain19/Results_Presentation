@@ -23,7 +23,7 @@ class TestResultCreate(TestResultBase):
 
 
 class TestResultResponse(TestResultBase):
-    id: int
+    key_id: int
 
     class Config:
         orm_mode = True

@@ -18,15 +18,13 @@ def get_test_category(db: Session):
 
 
 def get_test_category_by_id(db: Session, test_category_id: str):
-    return (
-        db.query(TestCategory)
-        .filter(TestCategory.test_category_id == test_category_id)
-        .first()
-    )
+    return db.query(TestCategory).filter(TestCategory.test_category_id == test_category_id).first()
 
 
 def update_test_category(
-    db: Session, test_category_id: str, test_category: TestCategoryCreate,
+    db: Session,
+    test_category_id: str,
+    test_category: TestCategoryCreate,
 ):
     db_test_category = get_test_category_by_id(db, test_category_id)
     if db_test_category is None:

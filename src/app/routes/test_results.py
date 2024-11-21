@@ -21,9 +21,7 @@ def create_new_test_result(
 
 
 @router.get("/", response_model=list[TestResultResponse])
-def read_test_result(
-    db: Session = Depends(get_db)
-):
+def read_test_results(db: Session = Depends(get_db)):
     return test_results_service.get_test_result(db)
 
 
@@ -41,9 +39,7 @@ def update_test_result_details(
     test_result: TestResultCreate,
     db: Session = Depends(get_db),
 ):
-    return test_results_service.update_test_result(
-        db, test_result, test_result_id
-    )
+    return test_results_service.update_test_result(db, test_result, test_result_id)
 
 
 @router.delete("/{test_result_id}")

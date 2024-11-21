@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-from .core.database import Base, engine
-from .routes import api_router
+from src.app.core.database import Base, engine
+from src.app.routes import api_router
 
 Base.metadata.create_all(bind=engine)
 

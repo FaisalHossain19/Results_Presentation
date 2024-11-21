@@ -14,10 +14,12 @@ settings = get_settings()
 
 # User CRUD operations
 def get_user(db: Session, user_id: int):
-    return db.query(User).filter(User.id == user_id).first()
+    return db.query(User).filter(User.key_id == user_id).first()
+
 
 # def get_all_users(db: Session, user_id: int):
 #     return db.query(User).filter(User.id == user_id).all()
+
 
 def get_user_by_username(db: Session, username: str):
     return db.query(User).filter(User.username == username).first()
@@ -30,9 +32,7 @@ def get_user_by_email(db: Session, email: str):
 # Register a new user
 def create_user(db: Session, user: UserCreate):
     if get_user_by_username(db, user.username) or get_user_by_email(db, user.email):
-        raise HTTPException(
-            status_code=400, detail="Username or email already registered"
-        )
+        raise HTTPException(status_code=400, detail="Username or email already registered")
 
     password_hash = bcrypt.hash(user.password)
     verification_code = secrets.token_urlsafe(32)
@@ -61,12 +61,12 @@ def authenticate_user(db: Session, username: str, password: str):
     return user
 
 
-def verify_email(verification_code: str, db: Session):
-    pass
+# SHOULD DO FOR EXTRA CREDIT
+# def verify_email(verification_code: str, db: Session):
+#     pass
+
 
 def delete_user_by_id(db: Session, user_id: int):
-    db.query(User).filter(
-       User.id == user_id
-    ).delete()
+    db.query(User).filter(User.key_id == user_id).delete()
     db.commit()
     return True
