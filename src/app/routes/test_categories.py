@@ -2,10 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 import src.app.services.test_categories as test_categories_service
-from src.app.core.auth import decode_access_token, oauth2_scheme
 from src.app.dependencies import get_db
 from src.app.schemas.test_categories import TestCategoryCreate, TestCategoryResponse
-from src.app.services.user import get_user_by_username
 
 router = APIRouter()
 

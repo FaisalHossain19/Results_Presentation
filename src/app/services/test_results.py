@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from src.app.models.test_results import TestResult
-from src.app.schemas.test_results import TestResultCreate, TestResultBase
+from src.app.schemas.test_results import TestResultCreate
 
 
 # TestResult CRUD
