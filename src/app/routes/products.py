@@ -2,7 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 import src.app.services.products as products_service
-import src.app.services.user as user_service
+
+# import src.app.services.user as user_service
 from src.app.core.auth import decode_access_token, oauth2_scheme
 from src.app.dependencies import get_db
 from src.app.schemas.products import ProductsCreate, ProductsResponse
@@ -18,7 +19,7 @@ def create_new_product(
 ):
     username = decode_access_token(token).username
     print(username)
-    user = user_service.get_user_by_username(db, username).id
+    # user = user_service.get_user_by_username(db, username).id
     return products_service.create_product(db, product)
 
 

@@ -7,7 +7,6 @@ class TestCategoryBase(BaseModel):
 
 class TestCategoryCreate(TestCategoryBase):
     test_category_id: str
-    pass
 
 
 class TestCategoryResponse(TestCategoryBase):

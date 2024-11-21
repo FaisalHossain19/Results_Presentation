@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from src.app.routes import user, products, test_categories, test_results, versions
+from src.app.routes import products, test_categories, test_results, user, versions
 
 api_router = APIRouter()
 
@@ -15,5 +15,5 @@ api_router.include_router(
     )
 api_router.include_router(
     versions.router, prefix="/versions", tags=["Versions"]
-    
+
     )

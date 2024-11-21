@@ -7,7 +7,6 @@ class VersionBase(BaseModel):
 
 class VersionCreate(VersionBase):
     version_id: str
-    pass
 
 
 class VersionResponse(VersionBase):

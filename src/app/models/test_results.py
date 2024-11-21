@@ -2,6 +2,7 @@ import enum
 from datetime import datetime  # Correcting datetime and timezone import
 
 from sqlalchemy import Column, DateTime, Enum, Integer, String
+
 from src.app.core.database import Base
 
 
