@@ -1,5 +1,5 @@
 # Project Overview
-This project is a web-based platform designed to display test results for each major release of genome sequencing instrumentation products. The website lets users view results for various test categories associated with different release versions. 
+This project is a web-based platform designed to display test results for each major release of genome sequencing instrumentation products. The website lets users view results for various test categories associated with different release versions.
 
 ## Features
 - Display test results for different release versions.
@@ -32,14 +32,14 @@ The project uses the following dependencies, managed via `hatch` and `uv`:
 - `sqlalchemy>=2.0.36` — ORM for database management.
 - `sqlmodel>=0.0.22` — Combines SQLAlchemy and Pydantic for simpler database models.
 
-## Instructions for Setup and Running 
+## Instructions for Setup and Running
 To set up the project locally, follow these steps: <br>
-Clone the repository- 
-In the terminal copy and paste the following: `git clone https://github.com/FaisalHossain19/Results_Presentation.git` <br> 
+Clone the repository-
+In the terminal copy and paste the following: `git clone https://github.com/FaisalHossain19/Results_Presentation.git` <br>
 
 Next, install hatch and uv using pip. Once that has been done run the command: `hatch run uv sync`, this will create a virtual environment and synchronize your environment with the dependencies specified in the project configuration. <br>
 
-Finally, run `hatch run dev` this will run the main.py file. You will be able to see an IP address in the terminal output if you copy and paste that IP address into the browser, output of our program will be visible. 
+Finally, run `hatch run dev` this will run the main.py file. You will be able to see an IP address in the terminal output if you copy and paste that IP address into the browser, output of our program will be visible.
 
 ## Folder Structure
 
@@ -48,7 +48,7 @@ Finally, run `hatch run dev` this will run the main.py file. You will be able to
 │   └── test.yml <br>
 ├── src/           <br>
 │   ├── app/        <br>
-│   │   ├── core                  
+│   │   ├── core
 │   │   ├── models                      #Contains data models like users, test_results etc   <br>
 │   │   ├── routes                      #Contains API endpoints    <br>
 │   │   ├── schemas                     #Contains mapping between data models and python objects  <br>
@@ -67,12 +67,13 @@ Finally, run `hatch run dev` this will run the main.py file. You will be able to
 ├── Demo 2 Notes.txt                               <br>
 ├── Demo-1-Steps.txt                                <br>
 ├── LICENSE.txt                                     <br>
-├── README.md                                      
+├── README.md
 ├── database.db  <br>
 ├── pyproject.toml  <br>
 └── uv.lock  <br>
 
-
+## Progress
+We are now working at integrating the backend into this project to display the work that our backend is doing.
 ## License
 
 `Results-Presentation` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
