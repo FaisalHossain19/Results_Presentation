@@ -1,6 +1,6 @@
 # Project Overview
 This project is a web-based platform designed to display test results for each major release of genome sequencing instrumentation products. The website lets users view results for various test categories associated with different release versions.
-
+We are currently working on the frontend design to integrate into the backend.
 ## Features
 - Display test results for different release versions.
 - Include results for various test categories such as:
