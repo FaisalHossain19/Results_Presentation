@@ -5,14 +5,14 @@ from pydantic import BaseModel
 
 
 class TestCaseResult(str, Enum):
-    passed = "pass"
+    passed = "passed"
     fail = "fail"
     skipped = "skipped"
 
 
 class TestResultBase(BaseModel):
     requirement_id: int
-    test_case_id: str
+    test_case_id: int
     test_case_result: TestCaseResult
     execution_date: date
     version_tested: str
@@ -23,7 +23,7 @@ class TestResultCreate(TestResultBase):
 
 
 class TestResultResponse(TestResultBase):
-    id: int
+    key_id: int
 
     class Config:
         orm_mode = True

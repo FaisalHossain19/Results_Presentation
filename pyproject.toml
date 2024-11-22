@@ -59,7 +59,7 @@ installer = "uv"
 path = ".venv"
 
 [tool.hatch.envs.default.scripts]
-dev = "uvicorn app.main:app --reload"
+dev = "uvicorn src.app.main:app --reload"
 
 [tool.hatch.envs.default.env-vars]
 PYTHONASYNCIODEBUG = "1"
@@ -89,4 +89,11 @@ exclude_lines = [
   "no cov",
   "if __name__ == .__main__.:",
   "if TYPE_CHECKING:",
+]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = [
+    # Whitelisted default arguments
+    "fastapi.Header",
+    "fastapi.Depends",
 ]

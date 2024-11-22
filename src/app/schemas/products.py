@@ -2,15 +2,22 @@ from pydantic import BaseModel
 
 
 class ProductBase(BaseModel):
-    product_id: str
+    product_id: int
+    product_name: str
+    product_type: str
 
 
-class ProductCreate(ProductBase):
-    pass
+class ProductsCreate(ProductBase):
+    product_id: int
+    product_name: str
+    product_type: str
 
 
-class ProductResponse(ProductBase):
-    id: int
+class ProductsResponse(ProductBase):
+    key_id: int
+    product_id: int
+    product_name: str
+    product_type: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
