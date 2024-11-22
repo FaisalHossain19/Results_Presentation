@@ -6,12 +6,11 @@ class TestCategoryBase(BaseModel):
 
 
 class TestCategoryCreate(TestCategoryBase):
-    test_category_id: str
+    pass
 
 
 class TestCategoryResponse(TestCategoryBase):
-    key_id: int
-    test_category_id: str
+    id: int
 
     class Config:
         orm_mode = True

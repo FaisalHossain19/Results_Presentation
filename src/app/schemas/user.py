@@ -13,7 +13,7 @@ class UserCreate(UserBase):
 
 
 class User(UserBase):
-    key_id: int
+    id: int
     is_active: bool
     is_verified: bool
     created_at: datetime
@@ -23,7 +23,7 @@ class User(UserBase):
 
 
 class UserResponse(BaseModel):
-    key_id: int
+    id: int
     username: str
     email: EmailStr
     created_at: datetime

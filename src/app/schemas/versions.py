@@ -6,12 +6,11 @@ class VersionBase(BaseModel):
 
 
 class VersionCreate(VersionBase):
-    version_id: str
+    pass
 
 
 class VersionResponse(VersionBase):
-    key_id: int
-    version_id: str
+    id: int
 
     class Config:
         orm_mode = True
