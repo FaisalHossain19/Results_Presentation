@@ -11,7 +11,6 @@ class ProductsCreate(ProductBase):
     product_id: int
     product_name: str
     product_type: str
-    pass
 
 
 class ProductsResponse(ProductBase):

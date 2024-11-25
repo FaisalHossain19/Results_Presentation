@@ -1,10 +1,8 @@
 from datetime import UTC, datetime
 
-from sqlalchemy import Boolean, Column, DateTime, Integer, String, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
-from src.app.core.database import Base
+from sqlalchemy import Boolean, Column, DateTime, Integer, String
 
-from sqlalchemy.orm import relationship
+from src.app.core.database import Base
 
 
 class User(Base):

@@ -1,5 +1,6 @@
-from sqlalchemy.orm import Session
 from fastapi import HTTPException
+from sqlalchemy.orm import Session
+
 from src.app.models.versions import Version
 from src.app.schemas.versions import VersionBase, VersionCreate
 

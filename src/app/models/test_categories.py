@@ -1,7 +1,7 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
-from src.app.core.database import Base
+from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
+
+from src.app.core.database import Base
 
 
 class TestCategory(Base):

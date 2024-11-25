@@ -1,10 +1,10 @@
 import enum
 from datetime import datetime  # Correcting datetime and timezone import
 
-from sqlalchemy import Column, DateTime, Enum, Integer, String, ForeignKey
-from src.app.core.database import Base
-
+from sqlalchemy import Column, DateTime, Enum, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
+
+from src.app.core.database import Base
 
 
 class TestCaseResult(enum.Enum):
@@ -24,7 +24,7 @@ class TestResult(Base):
     version_tested = Column(String, nullable=False)
     test_category_id= Column(Integer, ForeignKey("test_categories.id"))
     product_id=Column(Integer,ForeignKey("products.id"))
-    
+
 
     test_category= relationship("TestCategory",back_populates="test_result")
     products_for_results=relationship("Product",back_populates="testing_results")
