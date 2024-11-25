@@ -13,7 +13,7 @@ import { LogIn, Menu, UserRoundPlus } from 'lucide-react';
 
 const navList = [
 	{
-		label: 'Dashboard',
+		label: 'Home',
 		link: '/',
 	},
 	{
@@ -28,6 +28,10 @@ const navList = [
 		label: 'Support',
 		link: '/support',
 	},
+	{
+		label: 'Results Dashboard',
+		link: '/results',
+	}
 ];
 
 export function Navbar() {
