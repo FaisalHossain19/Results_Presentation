@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 from src.app.core.database import Base
+from sqlalchemy.orm import relationship
 
 
 class Version(Base):
