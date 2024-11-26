@@ -25,6 +25,10 @@ const navList = [
 		link: '/support',
 	},
 	{
+		label: 'Products',
+		link: '/products',
+	},
+	{
 		label: 'Results Dashboard',
 		link: '/results',
 	}
