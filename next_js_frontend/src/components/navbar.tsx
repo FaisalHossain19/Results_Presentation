@@ -17,10 +17,6 @@ const navList = [
 		link: '/',
 	},
 	{
-		label: 'Summary',
-		link: '/summary',
-	},
-	{
 		label: 'About',
 		link: '/about',
 	},
