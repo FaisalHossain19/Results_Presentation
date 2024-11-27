@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
 from src.app.core.database import Base, engine
 from src.app.routes import api_router
 
@@ -21,11 +22,11 @@ app.add_middleware(
 # Include your API router
 app.include_router(api_router)
 
+
 # Root endpoint
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
-
 
 
 # @app.post("/users/register")
