@@ -42,16 +42,22 @@ const ProductList: React.FC<ProductListProps> = ({ apiUrl }) => {
     fetchProducts();
   }, [apiUrl]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  if (loading) return <p className="text-center text-gray-500">Loading...</p>;
+  if (error) return <p className="text-center text-red-500">{error}</p>;
 
   return (
-    <div>
-      <h2>Product List</h2>
-      <ul>
+    <div className="p-6 max-w-4xl mx-auto">
+      <h2 className="text-2xl font-semibold text-center mb-4">Product List</h2>
+      <ul className="space-y-4">
         {products.map((product) => (
-          <li key={product.product_id}>
-            {product.product_name} - {product.product_type}
+          <li
+            key={product.product_id}
+            className="flex justify-between items-center bg-card shadow-md p-4 rounded-md border border-border"
+          >
+            <div>
+              <p className="text-lg font-medium">{product.product_name}</p>
+              <p className="text-sm text-muted-foreground">{product.product_type}</p>
+            </div>
           </li>
         ))}
       </ul>

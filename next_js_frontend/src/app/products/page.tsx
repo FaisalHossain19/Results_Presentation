@@ -8,7 +8,6 @@ const ProductsPage = () => {
 
   return (
     <div>
-      <h1>Available Products</h1>
       <ProductList apiUrl={apiUrl} />
     </div>
   );
