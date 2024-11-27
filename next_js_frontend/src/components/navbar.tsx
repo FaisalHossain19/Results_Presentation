@@ -29,9 +29,14 @@ const navList = [
 		link: '/products',
 	},
 	{
+		label: 'Versions',
+		link: '/versions',
+	},
+	{
 		label: 'Results Dashboard',
 		link: '/results',
-	}
+	},
+
 ];
 
 export function Navbar() {

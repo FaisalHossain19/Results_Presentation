@@ -1,6 +1,8 @@
 "use client";
 
-const SupportPage = () => {
+import React from 'react';
+
+const SupportPage: React.FC = () => {
     const handleContactClick = () => {
         window.location.href = "mailto:support@domain.com";
     };
@@ -11,7 +13,7 @@ const SupportPage = () => {
             <header className="mb-8 text-center">
                 <h1 className="text-4xl font-bold">Support</h1>
                 <p className="mt-2 text-lg">
-                    Need help? We're here to assist you!
+                    Need help? We&apos;re here to assist you!
                 </p>
             </header>
 
