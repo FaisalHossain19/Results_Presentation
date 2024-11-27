@@ -17,10 +17,6 @@ const navList = [
 		link: '/',
 	},
 	{
-		label: 'Summary',
-		link: '/summary',
-	},
-	{
 		label: 'About',
 		link: '/about',
 	},
@@ -29,9 +25,18 @@ const navList = [
 		link: '/support',
 	},
 	{
+		label: 'Products',
+		link: '/products',
+	},
+	{
+		label: 'Versions',
+		link: '/versions',
+	},
+	{
 		label: 'Results Dashboard',
 		link: '/results',
-	}
+	},
+
 ];
 
 export function Navbar() {
