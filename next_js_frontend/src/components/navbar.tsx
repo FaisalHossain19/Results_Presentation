@@ -9,7 +9,7 @@ import { ModeToggle } from '@/components/mode-toggle';
 import UserButton from '@/components/UserButton';
 import { useState } from 'react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { LogIn, Menu, UserRoundPlus } from 'lucide-react';
+import { LogIn, Menu, UserRoundPlus, UserRound} from 'lucide-react';
 
 const navList = [
 	{
@@ -148,11 +148,15 @@ function DesktopNavbar() {
 						</div>
 					</div>
 					<div className="relative group">
-						<UserButton />
-						{/* Tooltip */}
-						<div className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 hidden w-max bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:block group-hover:opacity-100">
-							User Settings
-						</div>
+						<Link href="/my-account">
+							<Button variant="ghost">
+								<UserRound />
+							</Button>
+							{/* Tooltip */}
+							<div className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 hidden w-max bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:block group-hover:opacity-100">
+							My Account
+							</div>
+						</Link>
 					</div>
 				</div>
 			</nav>
