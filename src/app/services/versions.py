@@ -17,10 +17,7 @@ def get_version_by_id(db: Session, version_id: str):
 
 
 def create_version(db: Session, version: VersionCreate):
-    db_versions = Version(
-        version_id = version.version_id
-    )
-    print(db_versions)
+    db_versions = Version(version_id=version.version_id)
     if db_versions is None:
         return None
     db.add(db_versions)
@@ -49,9 +46,8 @@ def create_version(db: Session, version: VersionCreate):
 #     db.refresh(db_version)
 #     return db_version
 
-def update_version_by_id(
-    db: Session, version_id: str, version: VersionBase
-):
+
+def update_version_by_id(db: Session, version_id: str, version: VersionBase):
     db_version = get_version_by_id(db, version_id)
     if version is None:
         return None
@@ -61,9 +57,8 @@ def update_version_by_id(
     db.refresh(db_version)
     return db_version
 
+
 def delete_version_by_id(db: Session, version_id: int):
-    db.query(Version).filter(
-        Version.id == version_id
-    ).delete()
+    db.query(Version).filter(Version.key_id == version_id).delete()
     db.commit()
     return True

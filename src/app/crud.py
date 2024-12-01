@@ -12,8 +12,6 @@
 # from src.app.schemas.versions import VersionCreate, VersionResponse
 
 
-
-
 # # Product CRUD
 # def create_product(db: Session, product: ProductCreate) -> ProductResponse:
 #     db_product = Product(**product.dict())

@@ -14,7 +14,7 @@ class ProductsCreate(ProductBase):
 
 
 class ProductsResponse(ProductBase):
-    id: int
+    key_id: int
     product_id: int
     product_name: str
     product_type: str

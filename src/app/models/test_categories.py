@@ -6,7 +6,7 @@ from sqlalchemy.orm import relationship
 
 class TestCategory(Base):
     __tablename__ = "test_categories"
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    key_id = Column(Integer, primary_key=True, autoincrement=True)
     test_category_id = Column(String, nullable=False, unique=True)
     products_id=Column(Integer,ForeignKey("products.id"))
     version_id=Column(Integer, ForeignKey("versions.id"))
