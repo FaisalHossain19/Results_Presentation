@@ -28,7 +28,7 @@ export function MyAccount() {
         });
 
         if (!response.ok) {
-          throw new Error('Failed to fetch user data');
+          throw new Error('User not logged in');
         }
 
         const data = await response.json();
@@ -37,7 +37,7 @@ export function MyAccount() {
         setError(err instanceof Error ? err.message : 'An unknown error occurred');
         toast({
           title: 'Error',
-          description: 'Failed to load user data. Please try again.',
+          description: 'User not logged in. Please try again.',
           variant: 'destructive',
         });
       } finally {
