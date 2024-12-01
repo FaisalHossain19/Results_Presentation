@@ -10,4 +10,4 @@ class Version(Base):
     product_id=Column(Integer,ForeignKey("products.id"))
 
     product=relationship("Product", back_populates="versions")
-    categories=relationship("TestCategory",back_populates="version_for_categories")
+    categories=relationship("TestCategory",back_populates="version_for_category")
