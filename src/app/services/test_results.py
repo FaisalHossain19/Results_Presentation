@@ -71,39 +71,51 @@ def get_test_result(db: Session):
     ]
 
 
-def get_test_result_by_id(db: Session, test_case_id: int):
-    return db.query(TestResult).filter(TestResult.test_case_id == test_case_id).first()
+def get_test_result_by_id(db: Session, test_case_id: str):
+    return db.query(TestResult).filter(TestResult.test_case_id == test_case_id).all()
 
 
 def get_test_results_by_product_name(db: Session, product_name: str):
-    # Find the product by name
-    product = db.query(Product).filter(Product.product_name == product_name).first()
-    if not product:
+    # Find all products that match the product_name
+    products = db.query(Product).filter(Product.product_name == product_name).all()
+    if not products:
         return []
 
-    # Query test results with joins for test_category_name and product_name
-    test_results = (
-        db.query(TestResult)
-        .join(Product, TestResult.product_id == Product.key_id)
-        .join(TestCategory, TestResult.test_category_id == TestCategory.key_id)
-        .filter(TestResult.product_id == product.key_id)
-        .all()
-    )
+    # Initialize an empty list to store the results
+    all_test_results = []
 
-    # Map results to TestResultResponse schema
-    return [
-        TestResultResponse(
-            key_id=test_result.key_id,
-            requirement_id=test_result.requirement_id,
-            test_case_id=test_result.test_case_id,
-            test_case_result=test_result.test_case_result,
-            execution_date=test_result.execution_date,
-            version_tested=test_result.version_tested,
-            test_category_name=test_result.test_category.test_category_id,  # Accessing via join
-            product_name=test_result.products_for_results.product_name,  # Accessing via join
+    # Iterate through each product and get the associated test results
+    for product in products:
+        # Query test results with joins for test_category_name and product_name
+        test_results = (
+            db.query(TestResult)
+            .join(Product, TestResult.product_id == Product.key_id)
+            .join(TestCategory, TestResult.test_category_id == TestCategory.key_id)
+            .filter(TestResult.product_id == product.key_id)
+            .all()
         )
-        for test_result in test_results
-    ]
+
+        # Map results to TestResultResponse schema for the current product
+        product_test_results = [
+            TestResultResponse(
+                key_id=test_result.key_id,
+                requirement_id=test_result.requirement_id,
+                test_case_id=test_result.test_case_id,
+                test_case_result=test_result.test_case_result,
+                execution_date=test_result.execution_date,
+                version_tested=test_result.version_tested,
+                test_category_name=test_result.test_category.test_category_id,  # Accessing via join
+                product_name=product.product_name,  # Now accessing the product directly
+            )
+            for test_result in test_results
+        ]
+
+        # Add the results for the current product to the overall list
+        all_test_results.extend(product_test_results)
+
+    # Return all results for the matched products
+    return all_test_results
+
 
 
 def update_test_result(db: Session, test_result: TestResultCreate, test_case_id: int):

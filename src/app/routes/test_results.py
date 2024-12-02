@@ -24,15 +24,15 @@ def read_test_results(db: Session = Depends(get_db)):
     return test_results_service.get_test_result(db)
 
 
-@router.get("/{test_result_id}", response_model=TestResultResponse)
+@router.get("/{test_result_id}", response_model=list[TestResultResponse])
 def read_test_result(
-    test_result_id: int,
+    test_result_id: str,
     db: Session = Depends(get_db),
 ):
-    result = test_results_service.get_test_result_by_id(db, test_result_id)
-    if result is None:
+    results = test_results_service.get_test_result_by_id(db, test_result_id)
+    if results is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Test Category not found")
-    return result
+    return results
 
 
 @router.get("/product/{product_name}", response_model=list[TestResultResponse])

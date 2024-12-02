@@ -12,7 +12,7 @@ class TestCaseResult(str, Enum):
 
 class TestResultBase(BaseModel):
     requirement_id: int
-    test_case_id: int
+    test_case_id: str
     test_case_result: TestCaseResult
     execution_date: date
     version_tested: str
