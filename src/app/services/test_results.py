@@ -23,6 +23,9 @@ def get_test_result(db: Session):
 def get_test_result_by_id(db: Session, test_case_id: int):
     return db.query(TestResult).filter(TestResult.test_case_id == test_case_id).first()
 
+def get_test_results_by_product_id(db: Session, product_id: int):
+    return db.query(TestResult).filter(TestResult.product_id == product_id).all()
+
 
 def update_test_result(db: Session, test_result: TestResultCreate, test_case_id: int):
     db_test_result = get_test_result_by_id(db, test_case_id)
