@@ -22,9 +22,8 @@ class TestResult(Base):
     test_case_result = Column(Enum(TestCaseResult), nullable=False)
     execution_date = Column(DateTime, default=datetime.utcnow, nullable=False)  # Default to current UTC time
     version_tested = Column(String, nullable=False)
-    test_category_id= Column(Integer, ForeignKey("test_categories.id"))
-    product_id=Column(Integer,ForeignKey("products.id"))
+    test_category_id = Column(Integer, ForeignKey("test_categories.key_id"))
+    product_id = Column(Integer, ForeignKey("products.key_id"))
 
-
-    test_category= relationship("TestCategory",back_populates="test_result")
-    products_for_results=relationship("Product",back_populates="testing_results")
+    test_category = relationship("TestCategory", back_populates="test_result")
+    products_for_results = relationship("Product", back_populates="testing_results")
