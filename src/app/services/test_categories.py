@@ -1,6 +1,6 @@
+from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.exc import SQLAlchemyError
+
 from src.app.models.products import Product
 from src.app.models.test_categories import TestCategory
 from src.app.models.versions import Version
@@ -36,12 +36,14 @@ def create_test_category(db: Session, test_category: TestCategoryCreate):
     }
 
 
-
-
-
 def get_test_category(db: Session):
     # Fetch all test categories along with the related product and version data
-    categories = db.query(TestCategory).join(Product, Product.key_id == TestCategory.products_id).join(Version, Version.key_id == TestCategory.version_id).all()
+    categories = (
+        db.query(TestCategory)
+        .join(Product, Product.key_id == TestCategory.products_id)
+        .join(Version, Version.key_id == TestCategory.version_id)
+        .all()
+    )
 
     # Add the related data (product_name and version_name) to the response
     return [
@@ -96,14 +98,9 @@ def update_test_category(
 
 
 def delete_test_category(db: Session, test_category_id: str):
-    try:
-        test_category = db.query(TestCategory).filter(TestCategory.test_category_id == test_category_id).first()
-        if not test_category:
-            return False
-
-        db.delete(test_category)
-        db.commit()
-        return True
-    except SQLAlchemyError as e:
-        db.rollback()
-        raise e
+    test_category = db.query(TestCategory).filter(TestCategory.test_category_id == test_category_id).first()
+    if not test_category:
+        return False
+    db.delete(test_category)
+    db.commit()
+    return True

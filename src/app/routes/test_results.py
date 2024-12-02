@@ -37,17 +37,13 @@ def read_test_result(
 
 
 @router.get("/product/{product_id}", response_model=list[TestResultResponse])
-def get_results_for_product (
-    product_id: int,
-    db: Session = Depends (get_db)
-):
-
+def get_results_for_product(product_id: int, db: Session = Depends(get_db)):
     results = test_results_service.get_test_results_by_product_id(db, product_id)
 
     if not results:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail= f"No test results found for product ID {product_id}",
+            detail=f"No test results found for product ID {product_id}",
         )
     return results
 

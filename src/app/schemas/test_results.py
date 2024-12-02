@@ -27,5 +27,3 @@ class TestResultResponse(TestResultBase):
 
     class Config:
         orm_mode = True
-
-

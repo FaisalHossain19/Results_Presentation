@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from sqlalchemy.exc import SQLAlchemyError
 
 import src.app.services.test_categories as test_categories_service
 from src.app.dependencies import get_db
@@ -15,19 +14,13 @@ def create_new_category(
     category: TestCategoryCreate,
     db: Session = Depends(get_db),
 ):
-    try:
-        return test_categories_service.create_test_category(db, category)
-    except SQLAlchemyError as e:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
+    return test_categories_service.create_test_category(db, category)
 
 
 # Get all test categories
 @router.get("/", response_model=list[TestCategoryResponse])
 def get_all_categories(db: Session = Depends(get_db)):
-    try:
-        return test_categories_service.get_test_category(db)
-    except SQLAlchemyError as e:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
+    return test_categories_service.get_test_category(db)
 
 
 # Get a test category by ID
@@ -36,13 +29,10 @@ def get_test_category_details(
     test_category_id: str,
     db: Session = Depends(get_db),
 ):
-    try:
-        test_category = test_categories_service.get_test_category_by_id(db, test_category_id)
-        if test_category is None:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Test Category not found")
-        return test_category
-    except SQLAlchemyError as e:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
+    test_category = test_categories_service.get_test_category_by_id(db, test_category_id)
+    if test_category is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Test Category not found")
+    return test_category
 
 
 # Update a test category by ID
@@ -52,22 +42,16 @@ def update_test_category_details(
     test_category: TestCategoryCreate,
     db: Session = Depends(get_db),
 ):
-    try:
-        updated_category = test_categories_service.update_test_category(db, test_category_id, test_category)
-        if updated_category is None:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Test Category not found")
-        return updated_category
-    except SQLAlchemyError as e:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
+    updated_category = test_categories_service.update_test_category(db, test_category_id, test_category)
+    if updated_category is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Test Category not found")
+    return updated_category
 
 
 # Delete a category by ID
 @router.delete("/{test_category_id}")
 def delete_test_category(test_category_id: str, db: Session = Depends(get_db)):
-    try:
-        deleted = test_categories_service.delete_test_category(db, test_category_id)
-        if not deleted:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Test Category not found")
-        return {"message": "Test Category deleted successfully"}
-    except SQLAlchemyError as e:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
+    deleted = test_categories_service.delete_test_category(db, test_category_id)
+    if not deleted:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Test Category not found")
+    return {"message": "Test Category deleted successfully"}
