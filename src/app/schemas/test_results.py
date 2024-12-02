@@ -19,11 +19,14 @@ class TestResultBase(BaseModel):
 
 
 class TestResultCreate(TestResultBase):
-    pass
+    test_category_name: str
+    product_name: str
 
 
 class TestResultResponse(TestResultBase):
     key_id: int
+    test_category_name: str
+    product_name: str
 
     class Config:
         orm_mode = True
