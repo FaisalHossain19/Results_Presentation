@@ -117,7 +117,6 @@ def get_test_results_by_product_name(db: Session, product_name: str):
     return all_test_results
 
 
-
 def update_test_result(db: Session, test_result: TestResultCreate, test_case_id: int):
     db_test_result = get_test_result_by_id(db, test_case_id)
     if db_test_result is None:
