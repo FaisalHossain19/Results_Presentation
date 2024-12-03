@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { API_HOST_BASE_URL } from '../lib/constants'; // Assuming this is where your API base URL is stored
-import { useToast } from '../hooks/use-toast'; // Assuming you have a custom hook for toast notifications
+import { API_HOST_BASE_URL } from '../lib/constants';
+import { useToast } from '../hooks/use-toast';
 
 interface User {
   username: string;
@@ -23,7 +23,7 @@ export function MyAccount() {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`, // Assuming token is stored in localStorage
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
         });
 
@@ -32,7 +32,7 @@ export function MyAccount() {
         }
 
         const data = await response.json();
-        setUserData(data); // Set user data from the API response
+        setUserData(data);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An unknown error occurred');
         toast({
@@ -49,24 +49,43 @@ export function MyAccount() {
   }, [toast]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="flex justify-center items-center h-screen">Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <div className="flex justify-center items-center h-screen text-red-500">
+        Error: {error}
+      </div>
+    );
   }
 
   if (!userData) {
-    return <div>No user data found.</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        No user data found.
+      </div>
+    );
   }
 
   return (
-    <div className="my-account-container">
-      <h1>My Account</h1>
-      <div className="account-details">
-        <p><strong>Username:</strong> {userData.username}</p>
-        <p><strong>Email:</strong> {userData.email}</p>
-        <p><strong>Account Created At:</strong> {new Date(userData.created_at).toLocaleString()} (UTC)</p>
+    <div className="max-w-[400px] mx-auto p-6 bg-card text-card-foreground border border-muted rounded-lg shadow-md">
+      <h1 className="text-xl font-bold mb-4 text-primary">My Account</h1>
+      <div className="space-y-4">
+        <div>
+          <span className="font-semibold">Username:</span> {userData.username}
+        </div>
+        <div>
+          <span className="font-semibold">Email:</span> {userData.email}
+        </div>
+        <div>
+          <span className="font-semibold">Account Created At:</span>{' '}
+          {new Date(userData.created_at).toLocaleString('en-US', {
+            dateStyle: 'medium',
+            timeStyle: 'short',
+          })}{' '}
+          (UTC)
+        </div>
       </div>
     </div>
   );
