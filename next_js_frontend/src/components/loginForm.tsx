@@ -45,7 +45,7 @@ async function loginUser(data: LoginFormValues) {
 		console.log(result);
 		return { success: true, token: result.access_token };
 	}
-
+	
 	throw new Error('Invalid credentials');
 }
 
@@ -71,6 +71,8 @@ export function LoginForm() {
 					title: 'Login Successful',
 					description: 'You have been successfully logged in.',
 				});
+				// Redirect to the "my-account" page
+				window.location.href = 'my-account';
 			}
 		} catch (error) {
 			toast({
@@ -83,6 +85,7 @@ export function LoginForm() {
 			setIsLoading(false);
 		}
 	};
+	
 
 	return (
 		<Card className="w-[350px]">
