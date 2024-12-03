@@ -7,7 +7,7 @@ from src.app.core.database import Base
 class TestCategory(Base):
     __tablename__ = "test_categories"
     key_id = Column(Integer, primary_key=True, autoincrement=True)
-    test_category_id = Column(String, nullable=False, unique=True)
+    test_category_id = Column(String, nullable=False)
     products_id = Column(Integer, ForeignKey("products.key_id"))
     version_id = Column(Integer, ForeignKey("versions.key_id"))
 

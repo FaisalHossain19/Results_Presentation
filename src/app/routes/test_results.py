@@ -11,7 +11,6 @@ router = APIRouter()
 @router.post("/", response_model=TestResultResponse)
 def create_new_test_result(
     test_results: TestResultCreate,
-    # test_case_id: int,
     db: Session = Depends(get_db),
 ):
     result = test_results_service.create_test_result(db, test_results)
@@ -25,15 +24,27 @@ def read_test_results(db: Session = Depends(get_db)):
     return test_results_service.get_test_result(db)
 
 
-@router.get("/{test_result_id}", response_model=TestResultResponse)
+@router.get("/{test_result_id}", response_model=list[TestResultResponse])
 def read_test_result(
-    test_result_id: int,
+    test_result_id: str,
     db: Session = Depends(get_db),
 ):
-    result = test_results_service.get_test_result_by_id(db, test_result_id)
-    if result is None:
+    results = test_results_service.get_test_result_by_id(db, test_result_id)
+    if results is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Test Category not found")
-    return result
+    return results
+
+
+@router.get("/product/{product_name}", response_model=list[TestResultResponse])
+def get_results_for_product(product_name: str, db: Session = Depends(get_db)):
+    results = test_results_service.get_test_results_by_product_name(db, product_name)
+
+    if not results:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"No test results found for product ID {product_name}",
+        )
+    return results
 
 
 @router.put("/{test_result_id}", response_model=TestResultResponse)

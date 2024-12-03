@@ -28,14 +28,6 @@ def create_product(db: Session, product: ProductsCreate):
     return db_product
 
 
-# def get_product_by_id(db: Session, product_id: int, user_id: int):
-#     return (
-#         db.query(Product)
-#         .filter(Product.id == product_id, Product.user_id == user_id)
-#         .first()
-#     )
-
-
 def update_product_by_id(db: Session, product_id: int, product: ProductBase):
     db_product = get_product_by_product_id(db, product_id)
     if db_product is None:

@@ -24,13 +24,12 @@ def get_all_categories(db: Session = Depends(get_db)):
 
 
 # Get a test category by ID
-@router.get("/{test_category_id}", response_model=TestCategoryResponse)
+@router.get("/{test_category_id}", response_model=list[TestCategoryResponse])
 def get_test_category_details(
     test_category_id: str,
     db: Session = Depends(get_db),
 ):
     test_category = test_categories_service.get_test_category_by_id(db, test_category_id)
-
     if test_category is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Test Category not found")
     return test_category
@@ -43,17 +42,16 @@ def update_test_category_details(
     test_category: TestCategoryCreate,
     db: Session = Depends(get_db),
 ):
-    test_category = test_categories_service.update_test_category(db, test_category_id, test_category)
-    if test_category is None:
+    updated_category = test_categories_service.update_test_category(db, test_category_id, test_category)
+    if updated_category is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Test Category not found")
-    return test_category
+    return updated_category
 
 
 # Delete a category by ID
 @router.delete("/{test_category_id}")
 def delete_test_category(test_category_id: str, db: Session = Depends(get_db)):
-    test_category = test_categories_service.delete_test_category(db, test_category_id)
-    if test_category is False:
+    deleted = test_categories_service.delete_test_category(db, test_category_id)
+    if not deleted:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Test Category not found")
-    # test_categories_service.delete_test_category_by_id(db, test_category_id)
     return {"message": "Test Category deleted successfully"}

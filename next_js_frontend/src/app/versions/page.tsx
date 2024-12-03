@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import VersionList from '../../components/versionList';
+import VersionList from '@/components/versionList';
 import { API_HOST_BASE_URL } from '../../lib/constants';
 
 const VersionsPage = () => {
