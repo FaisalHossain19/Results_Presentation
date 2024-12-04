@@ -2,7 +2,10 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+cd into the frontend folder (next_js_frontend)
+First, install the dependencies:
+`npm install`
+Second, run the development server:
 
 ```bash
 npm run dev
