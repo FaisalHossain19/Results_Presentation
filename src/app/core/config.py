@@ -9,6 +9,9 @@ load_dotenv()
 class Settings(BaseSettings):
     SQLALCHEMY_DATABASE_URL: str
     SECRET_KEY: str
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
+    POSTGRES_DB: str
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
@@ -19,5 +22,3 @@ def get_settings() -> Settings:
 
 
 settings = get_settings()
-
-# print(settings.SQLALCHEMY_DATABASE_URL)
