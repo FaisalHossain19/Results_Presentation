@@ -61,6 +61,7 @@ path = ".venv"
 
 [tool.hatch.envs.default.scripts]
 dev = "uvicorn src.app.main:app --reload"
+start = "uvicorn src.app.main:app --host 0.0.0.0 --port 8000"
 
 [tool.hatch.envs.default.env-vars]
 PYTHONASYNCIODEBUG = "1"
