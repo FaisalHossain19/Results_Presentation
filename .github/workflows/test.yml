@@ -13,6 +13,7 @@ concurrency:
 env:
     PYTHONUNBUFFERED: "1"
     FORCE_COLOR: "1"
+    DATABASE_URL: postgresql://postgres:password@db:5432/test_dash_db  # Set DATABASE_URL for the tests
 
 jobs:
     run:
@@ -56,7 +57,7 @@ jobs:
 
             - name: Wait for PostgreSQL to be ready
               run: |
-                  until pg_isready -h localhost -U postgres; do
+                  until pg_isready -h db -U postgres; do
                     echo "Waiting for PostgreSQL to be ready..."
                     sleep 1
                   done
@@ -66,5 +67,5 @@ jobs:
 
             - name: Run tests
               env:
-                  DATABASE_URL: postgresql://postgres:password@localhost:5432/test_dash_db
+                  DATABASE_URL: postgresql://postgres:password@db:5432/test_dash_db  # Set the DATABASE_URL environment variable for tests
               run: hatch test --python ${{ matrix.python-version }} --cover --randomize --parallel --retries 2 --retry-delay 1
