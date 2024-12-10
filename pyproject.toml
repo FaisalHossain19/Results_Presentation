@@ -29,6 +29,7 @@ classifiers = [
 dependencies = [
     "fastapi[all]>=0.115.4",
     "passlib[bcrypt]>=1.7.4",
+    "psycopg2>=2.9.10",
     "pydantic-settings>=2.6.1",
     "pyjwt>=2.9.0",
     "python-dotenv>=1.0.1",
@@ -60,6 +61,7 @@ path = ".venv"
 
 [tool.hatch.envs.default.scripts]
 dev = "uvicorn src.app.main:app --reload"
+start = "uvicorn src.app.main:app --host 0.0.0.0 --port 8000"
 
 [tool.hatch.envs.default.env-vars]
 PYTHONASYNCIODEBUG = "1"
