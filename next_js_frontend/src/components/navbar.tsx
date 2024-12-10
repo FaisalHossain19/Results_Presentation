@@ -1,5 +1,5 @@
 'use client';
-
+import { useIsLoggedIn } from '@/hooks/useIsLoggedIn';
 import Logo, { LogoMobile } from '@/components/Logo';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
@@ -141,17 +141,20 @@ function MobileNavbar() {
 				Toggle Theme
 			  </div>
 			</div>
-			<div className="relative group">
-			  <Link href="/my-account">
-				<Button variant="ghost">
-				  <UserRound />
-				</Button>
-			  </Link>
-			  {/* Tooltip */}
-			  <div className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 hidden w-max bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:block group-hover:opacity-100">
-				My Account
-			  </div>
-			</div>
+
+			{useIsLoggedIn() && (
+				<div className="relative group">
+					<Link href="/my-account">
+						<Button variant="ghost">
+							<UserRound />
+						</Button>
+					</Link>
+					{/* Tooltip */}
+					<div className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 hidden w-max bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:block group-hover:opacity-100">
+						My Account
+					</div>
+				</div>
+			)}
 			{/* Add Logout Button */}
 			<div className="relative group">
 			  <LogoutButton />
