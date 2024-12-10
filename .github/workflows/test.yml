@@ -1,71 +1,69 @@
 name: test
 
 on:
-    push:
-        branches: [main, master]
-    pull_request:
-        branches: [main, master]
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
 
 concurrency:
-    group: test-${{ github.head_ref }}
-    cancel-in-progress: true
+  group: test-${{ github.head_ref }}
+  cancel-in-progress: true
 
 env:
-    PYTHONUNBUFFERED: "1"
-    FORCE_COLOR: "1"
-    DATABASE_URL: postgresql://postgres:password@db:5432/test_dash_db  # Set DATABASE_URL for the tests
+  PYTHONUNBUFFERED: "1"
+  FORCE_COLOR: "1"
+  DATABASE_URL: postgresql://postgres:password@db:5432/test_dash_db  # Adjust DATABASE_URL for the tests
 
 jobs:
-    run:
-        name: Python ${{ matrix.python-version }} on Linux
-        runs-on: ubuntu-latest
-        strategy:
-            fail-fast: false
-            matrix:
-                python-version: ["3.12"]
+  run:
+    name: Python ${{ matrix.python-version }} on Linux
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12"]
 
-        services:
-            postgres:
-                image: postgres:latest
-                env:
-                    POSTGRES_USER: postgres
-                    POSTGRES_PASSWORD: password
-                    POSTGRES_DB: test_dash_db
-                ports:
-                    - 5432:5432
-                options: >-
-                    --health-cmd "pg_isready -U postgres"
-                    --health-interval 10s
-                    --health-timeout 5s
-                    --health-retries 5
+    steps:
+      - uses: actions/checkout@v3
 
-        steps:
-            - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
 
-            - name: Set up Python ${{ matrix.python-version }}
-              uses: actions/setup-python@v4
-              with:
-                  python-version: ${{ matrix.python-version }}
+      - name: Install Docker and Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+          sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
 
-            - name: Install Hatch
-              run: pip install --upgrade hatch
+      - name: Start Docker Compose
+        run: |
+          docker-compose -f docker-compose.yml up -d  # Start the backend and db containers in the background
 
-            - name: Install dependencies
-              run: |
-                  pip install psycopg2-binary  # Required for PostgreSQL connection
-                  hatch run uv sync
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until docker exec -T postgres_db_1 pg_isready -U postgres; do
+            echo "Waiting for PostgreSQL to be ready..."
+            sleep 1
+          done
+          echo "PostgreSQL is ready!"
 
-            - name: Wait for PostgreSQL to be ready
-              run: |
-                  until pg_isready -h db -U postgres; do
-                    echo "Waiting for PostgreSQL to be ready..."
-                    sleep 1
-                  done
+      - name: Install dependencies
+        run: |
+          pip install psycopg2-binary  # Required for PostgreSQL connection
+          hatch run uv sync
 
-            - name: Run static analysis
-              run: hatch fmt --check
+      - name: Run static analysis
+        run: hatch fmt --check
 
-            - name: Run tests
-              env:
-                  DATABASE_URL: postgresql://postgres:password@db:5432/test_dash_db  # Set the DATABASE_URL environment variable for tests
-              run: hatch test --python ${{ matrix.python-version }} --cover --randomize --parallel --retries 2 --retry-delay 1
+      - name: Run tests
+        env:
+          DATABASE_URL: postgresql://postgres:password@db:5432/test_dash_db  # Set the DATABASE_URL environment variable for tests
+        run: hatch test --python ${{ matrix.python-version }} --cover --randomize --parallel --retries 2 --retry-delay 1
+
+      - name: Stop Docker Compose
+        run: |
+          docker-compose down  # Clean up after tests
