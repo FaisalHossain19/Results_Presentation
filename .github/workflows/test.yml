@@ -16,13 +16,27 @@ env:
 
 jobs:
     run:
-        name: Python ${{ matrix.python-version }} on ${{ startsWith(matrix.os, 'macos-') && 'macOS' || startsWith(matrix.os, 'windows-') && 'Windows' || 'Linux' }}
-        runs-on: ${{ matrix.os }}
+        name: Python ${{ matrix.python-version }} on Linux
+        runs-on: ubuntu-latest
         strategy:
             fail-fast: false
             matrix:
-                os: [ubuntu-latest]
                 python-version: ["3.12"]
+
+        services:
+            postgres:
+                image: postgres:latest
+                env:
+                    POSTGRES_USER: postgres
+                    POSTGRES_PASSWORD: password
+                    POSTGRES_DB: test_dash_db
+                ports:
+                    - 5432:5432
+                options: >-
+                    --health-cmd "pg_isready -U postgres"
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 5
 
         steps:
             - uses: actions/checkout@v3
@@ -35,8 +49,22 @@ jobs:
             - name: Install Hatch
               run: pip install --upgrade hatch
 
+            - name: Install dependencies
+              run: |
+                  pip install psycopg2-binary  # Required for PostgreSQL connection
+                  hatch uv run sync
+
+            - name: Wait for PostgreSQL to be ready
+              run: |
+                  until pg_isready -h localhost -U postgres; do
+                    echo "Waiting for PostgreSQL to be ready..."
+                    sleep 1
+                  done
+
             - name: Run static analysis
               run: hatch fmt --check
 
             - name: Run tests
+              env:
+                  DATABASE_URL: postgresql://postgres:password@localhost:5432/test_dash_db
               run: hatch test --python ${{ matrix.python-version }} --cover --randomize --parallel --retries 2 --retry-delay 1
