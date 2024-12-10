@@ -52,7 +52,7 @@ jobs:
             - name: Install dependencies
               run: |
                   pip install psycopg2-binary  # Required for PostgreSQL connection
-                  hatch uv run sync
+                  hatch run uv sync
 
             - name: Wait for PostgreSQL to be ready
               run: |
