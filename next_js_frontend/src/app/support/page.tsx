@@ -97,7 +97,7 @@ const ContactUs: React.FC = () => {
 
                 {/* Send Button */}
                 <div className="text-center">
-                    <Button onClick={handleSendEmail} className="w-full">
+                    <Button onClick={handleSendEmail} className="bg-gradient-to-r from-sky-400 to-blue-500">
                         Send
                     </Button>
                 </div>

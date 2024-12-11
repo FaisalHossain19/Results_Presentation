@@ -1,29 +1,40 @@
 services:
-    backend:
-        build: .
-        ports:
-            - "8000:8000"
-        depends_on:
-            - db
-        networks:
-            - app_network
-    db:
-        image: postgres:latest
-        container_name: postgres_db_1
-        volumes:
-            - postgres_data:/var/lib/postgresql/data
-        environment:
-            POSTGRES_DB: test_dash_db
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: password
-        ports:
-            - "5432:5432"
-        networks:
-            - app_network
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - app_network
+
+  db:
+    image: postgres:latest
+    container_name: postgres_db_1
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: test_dash_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    networks:
+      - app_network
+
+  frontend:
+    build:
+      context: ./next_js_frontend  # Specify the path to your frontend folder
+    ports:
+      - "3000:3000"  # Expose the frontend port (3000 is the default for Next.js)
+    depends_on:
+      - backend  # Ensure the backend is up before the frontend
+    networks:
+      - app_network
 
 volumes:
-    postgres_data:
+  postgres_data:
 
 networks:
-    app_network:
-        driver: bridge
+  app_network:
+    driver: bridge
