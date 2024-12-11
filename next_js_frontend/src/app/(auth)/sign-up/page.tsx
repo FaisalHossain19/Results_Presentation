@@ -1,13 +1,5 @@
 import FormCard from '@/components/FormCard';
 import RegisterForm from '@/components/RegisterForm';
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from '@/components/ui/card';
 
 function Register() {
 	return (
