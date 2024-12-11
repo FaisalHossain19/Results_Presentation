@@ -32,9 +32,13 @@ const TestResultsPage: React.FC = () => {
 
   return (
     <div className="relative">
-      <AddTestResultButton />
-
-      <TestResultsPieChart testResults={testResults} />
+      <div className="text-center">
+        <AddTestResultButton />
+      </div>
+      {/* Restrict Pie Chart Size */}
+      <div className="flex justify-center">
+        <TestResultsPieChart testResults={testResults} />
+      </div>
 
       <TestResultsList testResults={testResults} />
     </div>
