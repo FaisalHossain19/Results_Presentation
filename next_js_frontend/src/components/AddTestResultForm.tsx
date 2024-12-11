@@ -166,7 +166,7 @@ export const AddTestResultForm: React.FC = () => {
             required
           >
             <option value="passed">Passed</option>
-            <option value="failed">Failed</option>
+            <option value="fail">Failed</option>
           </select>
         </div>
 
