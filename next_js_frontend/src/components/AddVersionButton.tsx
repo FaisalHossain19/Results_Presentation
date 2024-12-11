@@ -1,3 +1,4 @@
+// components/AddVersionButton.tsx
 import Link from "next/link";
 import { useIsLoggedIn } from "@/hooks/useIsLoggedIn";
 
@@ -7,9 +8,9 @@ export const AddVersionButton: React.FC = () => {
   if (!isLoggedIn) return null; // Don't render the button if not logged in
 
   return (
-    <div className="absolute top-4 left-4">
+    <div className="relative inset-0 flex items-center justify-center z-10 top-1">
       <Link href="/add-version">
-        <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        <button className="bg-gradient-to-r from-sky-400 to-blue-500 text-white px-4 py-2 rounded hover:from-sky-500 hover:to-blue-600">
           Add Version
         </button>
       </Link>
