@@ -13,7 +13,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ isSubmitting, label }) => {
 		<div className="flex justify-center ">
 			<Button
 				type="submit"
-				className={`w-full ${isSubmitting ? 'bg-gray-400' : 'bg-gradient-to-r from-amber-400 to-orange-500'}`}
+				className={`w-full ${isSubmitting ? 'bg-gray-400' : 'bg-gradient-to-r from-sky-400 to-blue-500'}`}
 				disabled={isSubmitting}
 			>
 				{isSubmitting ? (
