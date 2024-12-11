@@ -4,6 +4,9 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button"; // ShadCN button
 import { Input } from "@/components/ui/input";   // ShadCN input
 import { Textarea } from "@/components/ui/textarea"; // ShadCN textarea
+import { useRef, useEffect } from "react";
+import emailjs from "@emailjs/browser";
+
 
 const ContactUs: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -13,12 +16,20 @@ const ContactUs: React.FC = () => {
     });
 
     const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        emailjs.init("ROH5YxC5KNX_1s094"); 
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSendEmail = () => {
+
+    const handleSendEmail = async (e: React.FormEvent) => {
+
+        e.preventDefault();
         const { name, email, message } = formData;
 
         // Simple form validation
@@ -29,11 +40,26 @@ const ContactUs: React.FC = () => {
 
         setError(null);
 
-        // Constructing the mailto link
-        const subject = encodeURIComponent("Contact Us Form Submission");
-        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nMessage: ${message}`);
+        setLoading(true);
 
-        window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+        const serviceId = "test_dash"; 
+        const templateId = "template_wqj7t1y"; 
+
+        try {
+            await emailjs.send(serviceId, templateId, {
+                name: name,
+                recipient: email,
+                message: message,
+            });
+            alert("Email successfully sent! Check your inbox.");
+            setFormData({ name: "", email: "", message: "" }); // Reset the form
+        } catch (error) {
+            console.error("Failed to send email:", error);
+            setError("Failed to send the email. Please try again.");
+        } finally {
+            setLoading(false);
+        }
+
     };
 
     return (
