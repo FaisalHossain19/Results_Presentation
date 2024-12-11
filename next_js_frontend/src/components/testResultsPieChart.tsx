@@ -82,7 +82,7 @@ const TestResultsPieChart: React.FC<TestResultsPieChartProps> = ({ testResults }
   return (
     <div
       className="p-4 bg-card border rounded-md shadow-md"
-      style={{ width: '350px', height: '350px', margin: 'auto' }}
+      style={{ width: '350px', height: '350px', margin: '10px' }}
     >
       <h3 className="text-center font-semibold mb-4">Test Results Summary</h3>
       <Pie data={data} options={options} />

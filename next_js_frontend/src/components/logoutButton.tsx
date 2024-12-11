@@ -1,18 +1,15 @@
+"use client";
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/hooks/AuthContext';
 
 function LogoutButton() {
   const router = useRouter();
+  const { logout } = useAuth();
 
   const handleLogout = () => {
-    // Clear the token from localStorage
-    localStorage.removeItem('accessToken');
-
-    // Optionally clear other user data
-    localStorage.removeItem('user');
-
-    // Redirect to the login page
-    router.push('/sign-in');
+    logout(); // Update the global state and clear storage
+    router.push('/sign-in'); // Redirect to sign-in page
   };
 
   return (
