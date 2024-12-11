@@ -1,52 +1,109 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button"; // ShadCN button
+import { Input } from "@/components/ui/input";   // ShadCN input
+import { Textarea } from "@/components/ui/textarea"; // ShadCN textarea
 
-const SupportPage: React.FC = () => {
-    const handleContactClick = () => {
-        window.location.href = "mailto:support@domain.com";
+const ContactUs: React.FC = () => {
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        message: "",
+    });
+
+    const [error, setError] = useState<string | null>(null);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSendEmail = () => {
+        const { name, email, message } = formData;
+
+        // Simple form validation
+        if (!name || !email || !message) {
+            setError("All fields are required.");
+            return;
+        }
+
+        setError(null);
+
+        // Constructing the mailto link
+        const subject = encodeURIComponent("Contact Us Form Submission");
+        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nMessage: ${message}`);
+
+        window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
     };
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            {/* Header */}
+        <div className="container mx-auto px-4 py-8 max-w-2xl">
+            {/* Main Title */}
             <header className="mb-8 text-center">
-                <h1 className="text-4xl font-bold">Support</h1>
-                <p className="mt-2 text-lg">
-                    Need help? We&apos;re here to assist you!
+                <h1 className="text-4xl font-bold">Contact Us</h1>
+                <p className="mt-2 text-lg text-gray-600">
+                    We&apos;d love to hear from you! Fill out the form below.
                 </p>
             </header>
 
-            {/* FAQ Section */}
-            <section className="mb-12">
-                <h2 className="text-2xl font-semibold">Frequently Asked Questions</h2>
-                <ul className="mt-4 space-y-3">
-                    <li><strong>How do I contact support?</strong> You can reach us by email, using the "Contact Us" button below.</li>
-                    <li><strong>Where can I find documentation?</strong> You can find our documentation in the "Resources" section of our website.</li>
-                    <li><strong>What is your refund policy?</strong> For refund inquiries, please refer to the "Refunds" section on our website.</li>
-                </ul>
-            </section>
+            {/* Form Section */}
+            <section className="space-y-6">
+                {/* Name Field */}
+                <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                        Name
+                    </label>
+                    <Input
+                        id="name"
+                        name="name"
+                        placeholder="Your Name"
+                        value={formData.name}
+                        onChange={handleChange}
+                    />
+                </div>
 
-            {/* Contact Us Section */}
-            <section className="mb-12 text-center">
-                <h2 className="text-2xl font-semibold">Need More Help?</h2>
-                <p className="mt-4">
-                    If you have any other questions, feel free to reach out to our team.
-                </p>
-                <button
-                    onClick={handleContactClick}
-                    className="mt-4 bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600"
-                >
-                    Contact Us
-                </button>
-            </section>
+                {/* Email Field */}
+                <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                        Email
+                    </label>
+                    <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="you@example.com"
+                        value={formData.email}
+                        onChange={handleChange}
+                    />
+                </div>
 
-            {/* Footer Section */}
-            <footer className="mt-16 text-center">
-                <p>&copy; 2024 TestDash. All rights reserved.</p>
-            </footer>
+                {/* Message Field */}
+                <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700">
+                        Message
+                    </label>
+                    <Textarea
+                        id="message"
+                        name="message"
+                        rows={5}
+                        placeholder="Type your message here..."
+                        value={formData.message}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                {/* Error Display */}
+                {error && <p className="text-red-500 text-sm">{error}</p>}
+
+                {/* Send Button */}
+                <div className="text-center">
+                    <Button onClick={handleSendEmail} className="w-full">
+                        Send
+                    </Button>
+                </div>
+            </section>
         </div>
     );
 };
 
-export default SupportPage;
+export default ContactUs;
