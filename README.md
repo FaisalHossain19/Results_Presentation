@@ -41,6 +41,11 @@ Next, install hatch and uv using pip. Once that has been done run the command: `
 
 Finally, run `hatch run dev` this will run the main.py file. You will be able to see an IP address in the terminal output if you copy and paste that IP address into the browser, output of our program will be visible.
 
+## Initialization using Docker + Postgres
+Access the repository on your machine.
+When on the root folder, run `docker-compose up --build` to add the containers to your Docker desktop
+From here, open your Docker Desktop and open the frontend container port (localhost:3000)
+
 ## Folder Structure
 
 .
