@@ -37,7 +37,15 @@ To set up the project locally, follow these steps: <br>
 Clone the repository-
 In the terminal copy and paste the following: `git clone https://github.com/FaisalHossain19/Results_Presentation.git` <br>
 
-Next, install hatch and uv using pip. Once that has been done run the command: `hatch run uv sync`, this will create a virtual environment and synchronize your environment with the dependencies specified in the project configuration. <br>
+TO RUN (assuming database is setup):
+Install hatch and uv
+hatch run uv sync
+Hatch run dev
+IN ANOTHER TERMINAL
+cd to next_js_frontend
+Npm install
+Npm run dev
+access port localhost:3000
 
 Finally, run `hatch run dev` this will run the main.py file. You will be able to see an IP address in the terminal output if you copy and paste that IP address into the browser, output of our program will be visible.
 
