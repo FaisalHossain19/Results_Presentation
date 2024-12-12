@@ -19,7 +19,7 @@ const ContactUs: React.FC = () => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        emailjs.init("ROH5YxC5KNX_1s094"); 
+        emailjs.init("ROH5YxC5KNX_1s094");
     }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -42,9 +42,8 @@ const ContactUs: React.FC = () => {
 
         setLoading(true);
 
-        const serviceId = "test_dash"; 
-        const templateId = "template_wqj7t1y"; 
-
+        const serviceId = "test_dash";
+        const templateId = "template_wqj7t1y";
         try {
             await emailjs.send(serviceId, templateId, {
                 name: name,
