@@ -46,6 +46,15 @@ Finally, run `hatch run dev` this will run the main.py file. You will be able to
 .
 ├── .github/workflows/     <br>
 │   └── test.yml <br>
+├── next_js_frontend/ <br>
+|   ├── Dockerfile <br>
+|   ├── public/ <br>
+|   |   ├── *.svg <br>
+|   ├── src/ <br>
+|   |   ├── app/ <br>
+|   |   |   ├── pages/ <br>
+|   |   |   ├── components/ <br>
+|   |   |   ├── hooks/ <br>
 ├── src/           <br>
 │   ├── app/        <br>
 │   │   ├── core
@@ -64,11 +73,10 @@ Finally, run `hatch run dev` this will run the main.py file. You will be able to
 ├── .env                                        <br>
 ├── .gitignore                                   <br>
 ├── .pre-commit-config.yaml                        <br>
-├── Demo 2 Notes.txt                               <br>
-├── Demo-1-Steps.txt                                <br>
 ├── LICENSE.txt                                     <br>
-├── README.md
-├── database.db  <br>
+├── README.md <br>
+├── Dockerfile <br>
+├── docker-compose.yml <br>
 ├── pyproject.toml  <br>
 └── uv.lock  <br>
 
